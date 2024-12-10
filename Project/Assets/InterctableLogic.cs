@@ -1,30 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Random = System.Random;
 
 public class InteractableLogic : MonoBehaviour
 {
-    public Transform ControllerBase;
-    public XRGrabInteractable xrGrab;
+    [SerializeField] private AudioSource SoundSource;
+    [SerializeField] private AudioClip[] SoundEffects;
     
-    void Start()
+    private Random rand = new Random();
+
+
+    public void Start()
     {
-        xrGrab = this.GetComponent<XRGrabInteractable>();
-       // StartCoroutine(WaitForInit());
+        SoundSource = this.GetComponentInChildren<AudioSource>();
     }
 
-    IEnumerator WaitForInit()
+    public void OnCollisionEnter(Collision other)
     {
-        yield return new WaitForSeconds(1);
-        ControllerBase = GameObject.FindWithTag("RC_Base").transform;
-        xrGrab.attachTransform = ControllerBase.transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if (other.gameObject.layer != 3)
+            return;
         
+        var clip = SoundEffects[rand.Next(0, SoundEffects.Length)];
+        SoundSource.clip = clip;
+        SoundSource.Play();
     }
 }
