@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RC_Base
   - Sword
+  - Enemy
   layers:
   - Default
   - TransparentFX
