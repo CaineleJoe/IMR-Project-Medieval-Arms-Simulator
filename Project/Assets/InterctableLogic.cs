@@ -21,7 +21,7 @@ public class InteractableLogic : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer != 3)
+       if (other.gameObject.layer != 3)
             return;
         
         var clip = SoundEffects[rand.Next(0, SoundEffects.Length)];
